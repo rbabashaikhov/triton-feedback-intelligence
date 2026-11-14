@@ -1,0 +1,10 @@
+{
+  "embedding_model": "intfloat/multilingual-e5-small",
+  "classes": [
+    "complaint",
+    "positive",
+    "question"
+  ],
+  "embedding_dim": 384,
+  "training_samples": 30
+}

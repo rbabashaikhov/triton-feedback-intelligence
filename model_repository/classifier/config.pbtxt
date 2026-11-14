@@ -1,0 +1,26 @@
+name: "classifier"
+backend: "onnxruntime"
+max_batch_size: 8
+
+input [
+  {
+    name: "embedding"
+    data_type: TYPE_FP32
+    dims: [384]
+  }
+]
+
+output [
+  {
+    name: "probabilities"
+    data_type: TYPE_FP32
+    dims: [3]
+  }
+]
+
+instance_group [
+  {
+    kind: KIND_CPU
+    count: 1
+  }
+]

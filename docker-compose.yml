@@ -1,0 +1,30 @@
+services:
+  triton:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: triton-feedback:cpu
+    container_name: triton-feedback
+
+    ports:
+      - "127.0.0.1:8000:8000"
+      - "127.0.0.1:8001:8001"
+      - "127.0.0.1:8002:8002"
+
+    volumes:
+      - ./model_repository:/models:ro
+      - ./hf_cache:/root/.cache/huggingface
+
+    environment:
+      HF_HOME: /root/.cache/huggingface
+      HF_HUB_DISABLE_TELEMETRY: "1"
+      OMP_NUM_THREADS: "4"
+      OPENBLAS_NUM_THREADS: "4"
+
+    command:
+      - tritonserver
+      - --model-repository=/models
+      - --strict-model-config=true
+      - --log-verbose=0
+
+    restart: "no"
